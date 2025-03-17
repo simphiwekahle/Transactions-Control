@@ -2,7 +2,7 @@
 
 public class StoredProcedureOptions
 {
-	public string GetEveryPerson { get; set; } = string.Empty;
+	public string GetAllPersons { get; set; } = string.Empty;
 	public string GetPersonByCode { get; set; } = string.Empty;
 	public string InsertNewPerson { get; set; } = string.Empty;
 	public string UpdatePersonByCode { get; set; } = string.Empty;

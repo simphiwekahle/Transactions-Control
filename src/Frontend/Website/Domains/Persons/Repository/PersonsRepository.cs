@@ -96,7 +96,7 @@ IOptionsSnapshot<StoredProcedureOptions> storedProcedures) : IPersonsRepository
 		{
 			persons =
 				(await sqlConnection.QueryAsync<PersonsModel>(
-					sql: storedProcedures.Value.GetEveryPerson,
+					sql: storedProcedures.Value.GetAllPersons,
 					commandType: CommandType.StoredProcedure))
 					.ToList();
 

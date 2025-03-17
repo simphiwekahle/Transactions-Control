@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Data;
 using Website.Domains.Accounts.Repositories;
 
-namespace ManagePeopleAPI.Domains.Entities.Accounts.Repositories;
+namespace Website.Domains.Accounts.Repositories;
 
 public class AccountsRepository(
 ILogger<AccountsRepository> logger,
@@ -20,9 +20,9 @@ IOptionsSnapshot<StoredProcedureOptions> storedProcedures) : IAccountsRepository
         var dynamicParams = new DynamicParameters();
 
         dynamicParams.Add(name: "@code", dbType: DbType.Int32, direction: ParameterDirection.Output);
-        dynamicParams.Add(name: "@personCode", value: account.Person_Code, dbType: DbType.String, direction: ParameterDirection.Input);
-        dynamicParams.Add(name: "@accountNumber", value: account.Account_Number, dbType: DbType.String, direction: ParameterDirection.Input);
-        dynamicParams.Add(name: "@outstandingBalance", value: account.Outstanding_Balance, dbType: DbType.String, direction: ParameterDirection.Input);
+        dynamicParams.Add(name: "@person_code", value: account.Person_Code, dbType: DbType.String, direction: ParameterDirection.Input);
+        dynamicParams.Add(name: "@account_number", value: account.Account_Number, dbType: DbType.String, direction: ParameterDirection.Input);
+        dynamicParams.Add(name: "@outstanding_balance", value: account.Outstanding_Balance, dbType: DbType.String, direction: ParameterDirection.Input);
 
         using var sqlConnection = new SqlConnection(connectionStrings.Value.TransactionsDB);
 

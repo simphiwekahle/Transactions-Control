@@ -1,0 +1,17 @@
+﻿@model Shared.Domains.Accounts.Models.AccountsModel
+
+@{
+    ViewData["Title"] = "Account Details";
+}
+
+<h2>Account Details</h2>
+
+<div>
+    <p><strong>Code:</strong> @Model.Code</p>
+    <p><strong>Person Code:</strong> @Model.Person_Code</p>
+    <p><strong>Account Number:</strong> @Model.Account_Number</p>
+    <p><strong>Outstanding Balance:</strong> @Model.Outstanding_Balance</p>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+<a asp-action="Edit" asp-route-id="@Model.Code" class="btn btn-warning">Edit</a>

@@ -1,9 +1,8 @@
 ﻿using Shared.Domains.Transactions.Models;
 using Website.Domains.Accounts.Repositories;
 using Website.Domains.Transactions.Repositories;
-using Website.Domains.Transactions.Services;
 
-namespace ManagePeopleAPI.Domains.Entities.Transactions.Services;
+namespace Website.Domains.Transactions.Services;
 
 public class TransactionsServices(
     ITransactionsRepository transactionsRepository,
@@ -11,6 +10,11 @@ public class TransactionsServices(
 {
     public async Task<TransactionsModel?> AddTransactionAsync(TransactionsModel transaction)
     {
+        var account = await accountsRepository.RetrieveSingleAsync(transaction!.Account_Code);
+
+        if (account is null)
+            return null;
+
         if (transaction is not null)
         {
             transaction.Description = "New transaction added";
@@ -21,13 +25,6 @@ public class TransactionsServices(
         if (newTransaction is null ||
             newTransaction.Transaction_Date > DateTime.Now || 
             newTransaction.Amount == 0)
-        {
-            return null;
-        }
-
-        var account = await accountsRepository.RetrieveSingleAsync(transaction!.Account_Code);
-
-        if (account is null)
         {
             return null;
         }

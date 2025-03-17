@@ -8,9 +8,24 @@ namespace Website.Domains.Accounts.Services
 		IAccountsRepository accountsRepository,
 		IPersonsRepository personsRepository) : IAccountsService
 	{
-		public Task<AccountsModel?> AddAccountAsync(AccountsModel account)
+		public async Task<AccountsModel?> AddAccountAsync(AccountsModel account)
 		{
-			throw new NotImplementedException();
+			if (account is null)
+				return null;
+
+			var accountCheck = (await accountsRepository.RetrieveAllAsync())
+				.Find(a => a.Account_Number.Equals(account!.Account_Number));
+
+			var personCheck = await personsRepository.RetrieveSingleAsync(account.Person_Code);
+
+			if (accountCheck is null && personCheck is not null)
+			{
+				var newAccount = await accountsRepository.CreateAsync(account);
+
+				return newAccount;
+			}
+
+			return null;
 		}
 
 		public Task<List<AccountsModel>?> GetAccountsAsync()
