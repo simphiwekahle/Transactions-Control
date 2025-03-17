@@ -1,7 +1,21 @@
+using Website.Configurations;
+using Website.Domains.Persons;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var db = builder.Configuration.GetConnectionString("TransactionsDB")
+	?? throw new InvalidOperationException("ConnectionString:TransactionsDB is missing in configutations");
+
+builder.Services.AddPersonsServices();
+
+builder.Services.Configure<ConnectionStringOptions>(
+	builder.Configuration.GetSection("ConnectionStrings"));
+
+builder.Services.Configure<StoredProcedureOptions>(
+	builder.Configuration.GetSection("StoredProcedures"));
 
 var app = builder.Build();
 

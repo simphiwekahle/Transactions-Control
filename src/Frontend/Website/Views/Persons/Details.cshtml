@@ -1,0 +1,19 @@
+﻿@model Shared.Domains.Persons.Models.PersonsModel
+
+@{
+    ViewData["Title"] = "Person Details";
+}
+
+<h2>Person Details</h2>
+
+<div>
+    <p><strong>Code:</strong> @Model.Code</p>
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Surname:</strong> @Model.Surname</p>
+    <p><strong>ID Number:</strong> @Model.Id_Number</p>
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Code">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>
