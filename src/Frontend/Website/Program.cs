@@ -9,12 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//    .AddCookie(option =>
-//    {
-//        option.LoginPath = "/Access/Login";
-//        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-//    });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+	.AddCookie(option =>
+	{
+		option.LoginPath = "/Access/Login";
+		option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+	});
 
 var db = builder.Configuration.GetConnectionString("TransactionsDB")
 	?? throw new InvalidOperationException("ConnectionString:TransactionsDB is missing in configutations");
@@ -44,6 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
