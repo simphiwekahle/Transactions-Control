@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Domains.Transactions.Models;
-using System.Threading.Tasks;
 using Website.Domains.Transactions.Repositories;
 using Website.Domains.Transactions.Services;
 
 namespace Website.Domains.Transactions.Controllers;
 
+[Authorize]
 public class TransactionsController(
     ITransactionsServices transactionsServices,
     ITransactionsRepository transactionsRepository) : Controller

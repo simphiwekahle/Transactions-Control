@@ -13,7 +13,7 @@ namespace Website.Domains.Accounts.Services
 			if (account is null)
 				return null;
 
-			var accountCheck = (await accountsRepository.RetrieveAllAsync())
+			var accountCheck = (await accountsRepository.RetrieveAllAsync(account.Person_Code))
 				.Find(a => a.Account_Number.Equals(account!.Account_Number));
 
 			var personCheck = await personsRepository.RetrieveSingleAsync(account.Person_Code);

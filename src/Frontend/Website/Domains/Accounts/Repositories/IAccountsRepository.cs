@@ -6,7 +6,7 @@ public interface IAccountsRepository
 {
     Task<AccountsModel?> CreateAsync(AccountsModel account);
 
-    Task<List<AccountsModel>> RetrieveAllAsync();
+    Task<List<AccountsModel>> RetrieveAllAsync(int personCode);
 
     Task<AccountsModel?> RetrieveSingleAsync(int code);
 

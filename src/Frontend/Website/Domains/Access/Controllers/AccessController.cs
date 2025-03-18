@@ -21,7 +21,7 @@ public class AccessController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel modelLogin)
     {
-if (modelLogin.Email == "user@example.com" &&
+        if (modelLogin.Email == "user@example.com" &&
             modelLogin.Password == "123")
         {
             List<Claim> claims = new List<Claim> {

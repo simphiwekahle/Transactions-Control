@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Domains.Accounts.Models;
 using Website.Domains.Accounts.Repositories;
 using Website.Domains.Accounts.Services;
 
 namespace Website.Controllers;
 
+[Authorize]
 public class AccountsController(
     ILogger<AccountsController> logger,
     IAccountsRepository accountsRepository,
@@ -12,8 +14,9 @@ public class AccountsController(
 {
     public async Task<IActionResult> Index()
     {
-        var accounts = await accountsRepository.RetrieveAllAsync();
-        return View(accounts);
+        //var accounts = await accountsRepository.RetrieveAllAsync();
+        //return View(accounts);
+        return null;
     }
 
     public async Task<IActionResult> Details(int id)

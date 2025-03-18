@@ -84,7 +84,7 @@ IOptionsSnapshot<StoredProcedureOptions> storedProcedures) : IAccountsRepository
         }
     }
 
-    public async Task<List<AccountsModel>> RetrieveAllAsync()
+    public async Task<List<AccountsModel>> RetrieveAllAsync(int personCode)
     {
         logger.LogInformation("Repository => Attempting to retrieve all accounts");
 
@@ -97,6 +97,7 @@ IOptionsSnapshot<StoredProcedureOptions> storedProcedures) : IAccountsRepository
             accounts =
                 (await sqlConnection.QueryAsync<AccountsModel>(
                     sql: storedProcedures.Value.GetAllAccounts,
+                    param: new {personCode},
                     commandType: CommandType.StoredProcedure))
                     .ToList();
 

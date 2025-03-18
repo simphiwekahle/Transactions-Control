@@ -1,10 +1,13 @@
 ﻿using Shared.Domains.Persons.Models;
+using Website.Domains.Accounts.Repositories;
 using Website.Domains.Entities.Persons.Repositories;
+using Website.Domains.Persons.ViewModel;
 
 namespace Website.Domains.Persons.Services;
 
 public class PersonsServices(
-	IPersonsRepository personsRepository) : IPersonsServices
+	IPersonsRepository personsRepository,
+    IAccountsRepository accountsRepository) : IPersonsServices
 {
     public async Task<PersonsModel?> AddPersonAsync(PersonsModel person)
     {
@@ -34,13 +37,15 @@ public class PersonsServices(
         return people;
     }
 
-    public async Task<PersonsModel?> GetSinglePersonAsync(int code)
+    public async Task<PersonsViewModel?> GetSinglePersonAsync(int code, PersonsViewModel personsView)
     {
-        var person = await personsRepository.RetrieveSingleAsync(code);
-        if (person is null)
+        personsView.persons = await personsRepository.RetrieveSingleAsync(code);
+        personsView.accounts = await accountsRepository.RetrieveAllAsync(code);
+
+        if (personsView is null)
             return null;
 
-        return person;
+        return personsView;
     }
 
     public Task<bool> RemovePersonAsync(int code)
