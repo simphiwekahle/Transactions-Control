@@ -1,7 +1,7 @@
 ﻿using Shared.Domains.Persons.Models;
 using Website.Domains.Accounts.Repositories;
 using Website.Domains.Entities.Persons.Repositories;
-using Website.Domains.Persons.ViewModel;
+using Website.Domains.Persons.ViewModels;
 
 namespace Website.Domains.Persons.Services;
 
@@ -37,10 +37,13 @@ public class PersonsServices(
         return people;
     }
 
-    public async Task<PersonsViewModel?> GetSinglePersonAsync(int code, PersonsViewModel personsView)
+    public async Task<PersonsViewModel?> GetSinglePersonAsync(int code)
     {
+        PersonsViewModel personsView = new();
+
         personsView.persons = await personsRepository.RetrieveSingleAsync(code);
-        personsView.accounts = await accountsRepository.RetrieveAllAsync(code);
+        personsView.accounts = (await accountsRepository.RetrieveAllAsync())
+            .FindAll(a => a.Person_Code == code);
 
         if (personsView is null)
             return null;

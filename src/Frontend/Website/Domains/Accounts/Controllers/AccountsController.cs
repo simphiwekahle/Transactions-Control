@@ -21,7 +21,7 @@ public class AccountsController(
 
     public async Task<IActionResult> Details(int id)
     {
-        var account = await accountsRepository.RetrieveSingleAsync(id);
+        var account = await accountsService.GetSingleAccountAsync(id);
         if (account == null) return NotFound();
         return View(account);
     }

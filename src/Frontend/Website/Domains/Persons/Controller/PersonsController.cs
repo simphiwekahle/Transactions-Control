@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shared.Domains.Persons.Models;
 using Website.Domains.Persons.Services;
-using Website.Domains.Persons.ViewModel;
+using Website.Domains.Persons.ViewModels;
 
 namespace Website.Controllers;
 
@@ -16,11 +16,11 @@ public class PersonsController(
         return View(persons);
     }
 
-    public async Task<IActionResult> Details(int id, PersonsViewModel viewModel)
+    public async Task<IActionResult> Details(int id)
     {
         if (ModelState.IsValid)
         {
-            var person = await personsService.GetSinglePersonAsync(id, viewModel);
+            var person = await personsService.GetSinglePersonAsync(id);
             if (person == null) return NotFound();
             return View(person);
         }

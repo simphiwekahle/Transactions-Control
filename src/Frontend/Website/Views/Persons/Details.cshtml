@@ -1,4 +1,4 @@
-﻿@model Website.Domains.Persons.ViewModel.PersonsViewModel
+﻿@model PersonsViewModel
 
 @{
     ViewData["Title"] = "Person Details";
@@ -18,9 +18,13 @@
     <a asp-action="Index">Back to List</a>
 </p>
 
-<div>
-    <h3>My Accounts</h3>
-</div>
+@if (Model.accounts.Count is not 0)
+{
+    <div>
+        <h3>My Accounts</h3>
+    </div>
+}
+
 
 <div class="container">
     @foreach(var account in Model.accounts)

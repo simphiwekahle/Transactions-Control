@@ -1,17 +1,51 @@
-﻿@model Shared.Domains.Accounts.Models.AccountsModel
+﻿@model AccountsViewModel
 
 @{
     ViewData["Title"] = "Account Details";
 }
 
-<h2>Account Details</h2>
+<h2>My Account</h2>
 
 <div>
-    <p><strong>Code:</strong> @Model.Code</p>
-    <p><strong>Person Code:</strong> @Model.Person_Code</p>
-    <p><strong>Account Number:</strong> @Model.Account_Number</p>
-    <p><strong>Outstanding Balance:</strong> @Model.Outstanding_Balance</p>
+    <p><strong>Code:</strong> @Model.account.Code</p>
+    <p><strong>Person Code:</strong> @Model.account.Person_Code</p>
+    <p><strong>Account Number:</strong> @Model.account.Account_Number</p>
+    <p><strong>Outstanding Balance:</strong> @Model.account.Outstanding_Balance</p>
 </div>
 
 <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-<a asp-action="Edit" asp-route-id="@Model.Code" class="btn btn-warning">Edit</a>
+<a asp-action="Edit" asp-route-id="@Model.account.Code" class="btn btn-warning">Edit</a>
+
+<div>
+    <h3>My Transactions</h3>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Person Code</th>
+            <th>transaction Number</th>
+            <th>Outstanding Balance</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in Model.transactions)
+        {
+            <tr>
+                <td>@transaction.Code</td>
+                <td>@transaction.Account_Code</td>
+                <td>@transaction.Transaction_Date</td>
+                <td>@transaction.Capture_Date</td>
+                <td>@transaction.Amount</td>
+                <td>@transaction.Description</td>
+                <td>
+                    <a asp-controller="Transactions" asp-action="Details" asp-route-id="@transaction.Code" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@transaction.Code" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@transaction.Code" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

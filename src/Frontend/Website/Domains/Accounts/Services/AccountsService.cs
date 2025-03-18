@@ -1,19 +1,22 @@
 ﻿using Shared.Domains.Accounts.Models;
 using Website.Domains.Accounts.Repositories;
+using Website.Domains.Accounts.ViewModels;
 using Website.Domains.Entities.Persons.Repositories;
+using Website.Domains.Transactions.Repositories;
 
 namespace Website.Domains.Accounts.Services
 {
 	public class AccountsService(
 		IAccountsRepository accountsRepository,
-		IPersonsRepository personsRepository) : IAccountsService
+		IPersonsRepository personsRepository,
+		ITransactionsRepository transactionsRepository) : IAccountsService
 	{
 		public async Task<AccountsModel?> AddAccountAsync(AccountsModel account)
 		{
 			if (account is null)
 				return null;
 
-			var accountCheck = (await accountsRepository.RetrieveAllAsync(account.Person_Code))
+			var accountCheck = (await accountsRepository.RetrieveAllAsync())
 				.Find(a => a.Account_Number.Equals(account!.Account_Number));
 
 			var personCheck = await personsRepository.RetrieveSingleAsync(account.Person_Code);
@@ -33,9 +36,18 @@ namespace Website.Domains.Accounts.Services
 			throw new NotImplementedException();
 		}
 
-		public Task<AccountsModel?> GetSingleAccountAsync(int code)
+		public async Task<AccountsViewModel?> GetSingleAccountAsync(int code)
 		{
-			throw new NotImplementedException();
+			AccountsViewModel accountsView = new();
+
+            accountsView.account = await accountsRepository.RetrieveSingleAsync(code);
+			accountsView.transactions = (await transactionsRepository.RetrieveAllAsync())
+				.FindAll(t => t.Account_Code == code);
+
+			if (accountsView is null)
+				return null;
+
+            return accountsView;
 		}
 
 		public Task<bool> RemoveAccountAsync(int code)
