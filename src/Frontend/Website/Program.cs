@@ -1,7 +1,33 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Website.Configurations;
+using Website.Domains.Accounts;
+using Website.Domains.Persons;
+using Website.Domains.Transactions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+	.AddCookie(option =>
+	{
+		option.LoginPath = "/Access/Login";
+		option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+	});
+
+var db = builder.Configuration.GetConnectionString("TransactionsDB")
+	?? throw new InvalidOperationException("ConnectionString:TransactionsDB is missing in configutations");
+
+builder.Services.AddPersonsServices();
+builder.Services.AddAccountsServices();
+builder.Services.AddTransactionsServices();
+
+builder.Services.Configure<ConnectionStringOptions>(
+	builder.Configuration.GetSection("ConnectionStrings"));
+
+builder.Services.Configure<StoredProcedureOptions>(
+	builder.Configuration.GetSection("StoredProcedures"));
 
 var app = builder.Build();
 
@@ -18,6 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
