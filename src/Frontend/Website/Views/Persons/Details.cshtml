@@ -29,18 +29,14 @@
 <div class="container">
     @foreach(var account in Model.accounts)
     {
-    <div class="card">
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <a asp-controller="Accounts" asp-action="Details" asp-route-id="@account.Code">
-                    <div class="card-body">
-                        <p><strong>Account Number:</strong>@account.Account_Number</p>
-                    </div>
-                </a>
+        <a asp-controller="Accounts" asp-action="Details" asp-route-id="@account.Code">
+            <div class="features">
+                <div>
+                    <p><strong>Account Number:</strong>@account.Account_Number</p>
+                </div>
+                
             </div>
-        </div>
-    </div>
-        
+        </a>
     }
 </div>
 

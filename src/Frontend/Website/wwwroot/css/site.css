@@ -20,3 +20,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.features {
+    cursor: pointer;
+    display: block;
+    background: #FFD833;
+    box-shadow: 0 2px 48px 0 rgb(0 0 0 / 10%);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    position: relative;
+    margin-bottom: 30px;
+    min-height: 195px;
+}

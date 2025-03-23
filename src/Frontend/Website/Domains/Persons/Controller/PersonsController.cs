@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Shared.Domains.Persons.Models;
 using Website.Domains.Persons.Services;
-using Website.Domains.Persons.ViewModels;
 
 namespace Website.Controllers;
 
@@ -21,7 +20,9 @@ public class PersonsController(
         if (ModelState.IsValid)
         {
             var person = await personsService.GetSinglePersonAsync(id);
-            if (person == null) return NotFound();
+            if (person == null)
+                return NotFound();
+
             return View(person);
         }
         return RedirectToAction(nameof(Index));

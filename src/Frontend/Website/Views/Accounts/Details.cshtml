@@ -13,8 +13,12 @@
     <p><strong>Outstanding Balance:</strong> @Model.account.Outstanding_Balance</p>
 </div>
 
-<a asp-action="Index" class="btn btn-secondary">Back to List</a>
-<a asp-action="Edit" asp-route-id="@Model.account.Code" class="btn btn-warning">Edit</a>
+<a asp-controller="Persons" asp-action="Details" asp-route-id="@Model.account.Person_Code" class="btn btn-secondary">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</a>
+<a asp-action="Edit" asp-route-id="@Model.account.Code" class="btn btn-warning">
+    <i class="fa fa-eraser" aria-hidden="true"></i>
+</a>
 
 <div>
     <h3>My Transactions</h3>
@@ -41,9 +45,15 @@
                 <td>@transaction.Amount</td>
                 <td>@transaction.Description</td>
                 <td>
-                    <a asp-controller="Transactions" asp-action="Details" asp-route-id="@transaction.Code" class="btn btn-info">Details</a>
-                    <a asp-action="Edit" asp-route-id="@transaction.Code" class="btn btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@transaction.Code" class="btn btn-danger">Delete</a>
+                    <a asp-controller="Transactions" asp-action="Details" asp-route-id="@transaction.Code" class="btn btn-info">
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@transaction.Code" class="btn btn-warning">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@transaction.Code" class="btn btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
                 </td>
             </tr>
         }
